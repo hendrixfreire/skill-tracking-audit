@@ -3,9 +3,27 @@
 Duas skills complementares para auditar a coleta de dados de contas de mídia paga
 (Google Ads, Meta Ads, GA4). **Uma mede, a outra prova.**
 
+## Estrutura
+
+Cada skill é uma pasta independente, com o mesmo formato — um `SKILL.md` e uma pasta `references/`:
+
+```
+skill-tracking-audit/
+├── integridade-coleta/          # skill 1 — o termômetro (via API)
+│   ├── SKILL.md
+│   └── references/
+│       ├── limiares.md          #   calibragem editável (limiares, faixas, janelas)
+│       └── queries.md           #   mecânica de leitura (GAQL, Meta, GA4)
+└── causa-raiz-tracking/         # skill 2 — o exame (GTM + navegador)
+    ├── SKILL.md
+    └── references/
+        ├── gtm-api.md           #   Tag Manager API v2
+        └── navegacao.md         #   protocolo de navegação e leitura de rede
+```
+
 ## As skills
 
-### 1. [`integridade-coleta`](SKILL.md) — o termômetro
+### 1. [`integridade-coleta`](integridade-coleta/SKILL.md) — o termômetro
 
 Sanity check de onboarding. Responde **"dá para confiar nos dados dessa conta?"** em ~10 minutos,
 só com credencial de API (ou nem isso, no modo geral, que roda sobre exports).
@@ -14,10 +32,10 @@ só com credencial de API (ou nem isso, no modo geral, que roda sobre exports).
   anúncio a anúncio, discrepância contra o GA4
 - Saída: veredito **APTA / NÃO APTA** + score ponderado por gasto exposto + recomendações em
   ordem de dinheiro comprometido
-- Calibragem em [`references/limiares.md`](references/limiares.md), mecânica de leitura em
-  [`references/queries.md`](references/queries.md)
+- Calibragem em [`limiares.md`](integridade-coleta/references/limiares.md), mecânica de leitura em
+  [`queries.md`](integridade-coleta/references/queries.md)
 
-### 2. [`causa-raiz-tracking`](gtm-deep-audit/SKILL.md) — o exame
+### 2. [`causa-raiz-tracking`](causa-raiz-tracking/SKILL.md) — o exame
 
 Investigação sob demanda. Responde **"por que esse sintoma existe?"** quando a primeira skill
 aponta algo suspeito.
@@ -27,9 +45,8 @@ aponta algo suspeito.
   dataLayer, CAPI sem `event_id`
 - Saída: cada hipótese vira **CONFIRMADO / REFUTADO / INCONCLUSIVO**, com evidência conferível
   e responsável nomeado (analista / desenvolvedor / cliente)
-- API do GTM em [`gtm-deep-audit/references/gtm-api.md`](gtm-deep-audit/references/gtm-api.md),
-  protocolo de navegação em
-  [`gtm-deep-audit/references/navegacao.md`](gtm-deep-audit/references/navegacao.md)
+- API do GTM em [`gtm-api.md`](causa-raiz-tracking/references/gtm-api.md), protocolo de navegação em
+  [`navegacao.md`](causa-raiz-tracking/references/navegacao.md)
 
 ## O ciclo em produção
 
